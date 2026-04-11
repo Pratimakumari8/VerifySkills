@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  /* 🌑 DARK THEME BASE */
+  --bg: #020617;              /* Deep dark (not pure black) */
+  --surface: #0B1220;         /* Card background */
+  --border: #1E293B;
+
+  /* 🎨 BLUE PALETTE */
+  --primary: #BDE8F5;         /* Light blue (for highlights) */
+  --secondary: #4988C4;
+  --accent: #1C4D8D;          /* Buttons */
+  --accent-light: #0F2854;
+
+  /* 📝 TEXT */
+  --text-h: #E6F4FA;          /* Headings */
+  --text: #9FB3C8;            /* Paragraphs */
+
+  /* UI */
+  --code-bg: #0F172A;
+
+  --accent-bg: rgba(73, 136, 196, 0.15);
+  --accent-border: rgba(73, 136, 196, 0.4);
+
+  --shadow:
+    rgba(0, 0, 0, 0.5) 0 10px 15px -3px,
+    rgba(0, 0, 0, 0.3) 0 4px 6px -2px;
+
+  /* Fonts */
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color: var(--text);
+  background: var(--bg);
+}
