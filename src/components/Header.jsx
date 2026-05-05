@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Link } from "react-router-dom";
 const Header = () => {
   const [open, setOpen] = useState(false);
   return (
@@ -40,22 +40,24 @@ const Header = () => {
 
       {/* BUTTONS */}
       <div className="flex items-center gap-3">
-        <button
-          className="px-3 py-2 md:px-4 rounded-full text-sm font-medium transition border cursor-pointer hover:bg-[var(--primary)] hover:text-black"
-          style={{ borderColor: "var(--border)", color: "var(--text)" }}
-        >
-          Login
-        </button>
+       <Link to="/login">
+  <button
+    className="px-3 py-2 md:px-4 rounded-full text-sm font-medium transition border cursor-pointer hover:bg-[var(--primary)] hover:text-black"
+    style={{ borderColor: "var(--border)", color: "var(--text)" }}
+  >
+    Login
+  </button>
+</Link>
 
        <div className="relative">
+  <Link to="/signup">
   <button
-    onClick={() => setOpen(!open)}
     className="px-3 py-2 md:px-4 rounded-full text-sm font-medium transition cursor-pointer hover:brightness-150"
     style={{ background: "var(--accent)", color: "white" }}
   >
-    Sign Up
+    Sign Up 
   </button>
-
+</Link>
   {open && (
     <div
       className="absolute right-0 mt-2 w-44 rounded-xl shadow-lg z-50 overflow-hidden"
