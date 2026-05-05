@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import hero from "../assets/login_Signup.jpg"; // same as landing
 
+
 const Signup = () => {
+     const location = useLocation();
+const role = location.state?.role || "User";
   return (
     <div className="min-h-screen flex items-center justify-center bg-[var(--bg)] p-6">
 
@@ -37,7 +41,14 @@ const Signup = () => {
           </div>
 
           {/* TEXT */}
-          
+         <div className="absolute bottom-10 left-8 text-white z-10">
+  <h1 className="text-4xl font-semibold">
+    Join VerifySkills
+  </h1>
+  <p className="text-sm text-[var(--text)] mt-2">
+    Create your {role} account and start using VerifySkills
+  </p>
+</div>
         </div>
 
         {/* RIGHT SIDE */}
