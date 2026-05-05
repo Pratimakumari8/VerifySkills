@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Header = () => {
+  const [open, setOpen] = useState(false);
   return (
     <nav
       className="flex items-center justify-between max-w-6xl mx-auto mt-6 px-6 py-4 rounded-full border text-sm"
@@ -25,7 +26,7 @@ const Header = () => {
 
       {/* NAV LINKS */}
       <div className="hidden md:flex items-center gap-8 ml-7">
-        {["Home", "Features", "How it works"].map((item) => (
+        {["Home", "How it works", "About us"].map((item) => (
           <a key={item} href="#" className="relative overflow-hidden h-6 group">
             <span className="block group-hover:-translate-y-full transition-transform duration-300 text-[var(--text)]">
               {item}
@@ -46,12 +47,34 @@ const Header = () => {
           Login
         </button>
 
-        <button
-          className="px-3 py-2 md:px-4 rounded-full text-sm font-medium transition cursor-pointer hover:brightness-150"
-          style={{ background: "var(--accent)", color: "white" }}
+       <div className="relative">
+  <button
+    onClick={() => setOpen(!open)}
+    className="px-3 py-2 md:px-4 rounded-full text-sm font-medium transition cursor-pointer hover:brightness-150"
+    style={{ background: "var(--accent)", color: "white" }}
+  >
+    Sign Up
+  </button>
+
+  {open && (
+    <div
+      className="absolute right-0 mt-2 w-44 rounded-xl shadow-lg z-50 overflow-hidden"
+      style={{
+        background: "var(--surface)",
+        border: "1px solid var(--border)",
+      }}
+    >
+      {["Student", "Institute", "Employer"].map((role) => (
+        <div
+          key={role}
+          className="px-4 py-2 text-sm cursor-pointer transition hover:bg-[var(--accent-bg)]"
         >
-          Sign Up
-        </button>
+          {role}
+        </div>
+      ))}
+    </div>
+  )}
+</div>
       </div>
     </nav>
   );
