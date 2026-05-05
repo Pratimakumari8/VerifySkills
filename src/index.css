@@ -1,38 +1,47 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 :root {
-  /* 🌑 DARK THEME BASE */
-  --bg: #020617;              /* Deep dark (not pure black) */
-  --surface: #0B1220;         /* Card background */
-  --border: #1E293B;
+  /* 🌑 BASE */
+  --bg: #000000;          /* Main background */
+  --surface: #464646;     /* Cards / navbar */
+  --border: #9C9A9A;      /* Subtle borders */
 
-  /* 🎨 BLUE PALETTE */
-  --primary: #BDE8F5;         /* Light blue (for highlights) */
-  --secondary: #4988C4;
-  --accent: #1C4D8D;          /* Buttons */
-  --accent-light: #0F2854;
+  /* 🎨 PALETTE */
+  --primary: #A35E47;     /* Warm accent (main highlight 🔥) */
+  --secondary: #9C9A9A;   /* Muted gray */
+  --accent: #A35E47;      /* Buttons */
+  --accent-light: #C07A63;
 
   /* 📝 TEXT */
-  --text-h: #E6F4FA;          /* Headings */
-  --text: #9FB3C8;            /* Paragraphs */
+  --text-h: #FFFFFF;      /* Headings */
+  --text: #D1D1D1;        /* Paragraph text */
 
   /* UI */
-  --code-bg: #0F172A;
+  --code-bg: #1A1A1A;
 
-  --accent-bg: rgba(73, 136, 196, 0.15);
-  --accent-border: rgba(73, 136, 196, 0.4);
+  --accent-bg: rgba(163, 94, 71, 0.15);
+  --accent-border: rgba(163, 94, 71, 0.4);
 
   --shadow:
-    rgba(0, 0, 0, 0.5) 0 10px 15px -3px,
-    rgba(0, 0, 0, 0.3) 0 4px 6px -2px;
+    rgba(0, 0, 0, 0.7) 0 10px 20px -5px,
+    rgba(0, 0, 0, 0.5) 0 5px 10px -3px;
 
   /* Fonts */
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: 'Outfit', system-ui, sans-serif;
+  --heading: 'Outfit', system-ui, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
+  font-family: var(--sans);
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+
   color: var(--text);
   background: var(--bg);
+}
+
+/* Prevent Tailwind override */
+body {
+  font-family: var(--sans);
 }

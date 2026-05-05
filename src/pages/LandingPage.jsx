@@ -1,104 +1,222 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
+import hero from "../assets/heropage3.jpg";
+import ProblemCard from "../components/ProblemCard";
+import { ShieldX, Clock, AlertTriangle,Upload, Database, QrCode, CheckCircle} from "lucide-react";
+import arrow from "../assets/arrow.png";
+import feature from "../assets/feature.jpg";
 const LandingPage = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen bg-[var(--bg)]">
 
       <Header />
 
       {/* HERO SECTION */}
-      <section className="text-center py-20 px-6">
-        <h1 className="text-4xl md:text-6xl font-semibold text-[var(--text-h)]">
-          Verify Skills. Instantly. Securely.
-        </h1>
+       
+      <section className="relative w-full h-[90vh] flex items-center justify-center text-center">
 
-        <p className="mt-4 text-lg text-[var(--text)] max-w-2xl mx-auto">
-          Blockchain-powered credential verification for students, institutes, and employers.
+  {/* BACKGROUND IMAGE */}
+  <img
+    src= {hero}// 👉 put your image in public folder
+    alt="Hero"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
+
+  {/* DARK OVERLAY */}
+  <div className="absolute inset-0 bg-black/60"></div>
+
+  {/* CONTENT */}
+  <div className="relative z-10 px-6 max-w-3xl">
+    <h1 className="text-4xl md:text-6xl font-semibold text-[var(--text-h)]">
+      Verify Skills. Instantly. Securely.
+    </h1>
+
+    <p className="mt-4 text-lg text-[var(--text)]">
+      Blockchain-powered credential verification for students, institutes, and employers.
+    </p>
+  </div>
+
+</section>
+<section className="px-6 py-20">
+  <h2 className="text-3xl font-semibold text-center text-[var(--text-h)] mb-4">
+    Problems We Solve
+  </h2>
+
+  <p className="text-center text-[var(--text)] mb-12 max-w-2xl mx-auto">
+    Traditional credential systems are slow, unreliable, and prone to fraud. 
+    We fix that with secure, instant verification.
+  </p>
+
+  <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+    
+ <ProblemCard
+  title="Fake Certificates"
+  description="Employers struggle to verify authenticity, leading to hiring risks."
+  icon={<ShieldX size={22} color="var(--primary)" />}
+/>
+
+<ProblemCard
+  title="Slow Verification"
+  description="Manual verification takes days, slowing hiring decisions."
+  icon={<Clock size={22} color="var(--primary)" />}
+/>
+
+<ProblemCard
+  title="Lack of Trust"
+  description="No tamper-proof system exists to ensure credibility."
+  icon={<AlertTriangle size={22} color="var(--primary)" />}
+/>
+  </div>
+</section>
+{/* SOLUTION SECTION */}
+<section className="px-6 py-20">
+  <h2 className="text-3xl font-semibold text-center text-[var(--text-h)] mb-4">
+    How VerifySkills Works
+  </h2>
+
+  <p className="text-center text-[var(--text)] mb-16 max-w-2xl mx-auto">
+    A seamless and secure process designed to eliminate fraud and enable instant verification.
+  </p>
+
+  <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+
+    {[
+      {
+        title: "Upload Certificate",
+        desc: "Institutions upload verified credentials securely.",
+        icon: <Upload size={28} />,
+      },
+      {
+        title: "Store on Blockchain",
+        desc: "Data is stored immutably and cannot be altered.",
+        icon: <Database size={28} />,
+      },
+      {
+        title: "Generate ID / QR",
+        desc: "Each certificate gets a unique verification identity.",
+        icon: <QrCode size={28} />,
+      },
+      {
+        title: "Instant Verification",
+        desc: "Employers verify instantly with zero delay.",
+        icon: <CheckCircle size={28} />,
+      },
+    ].map((step, index) => (
+      <div
+        key={index}
+        className="relative p-6 rounded-xl cursor-pointer transition-all duration-300 hover:scale-105"
+        style={{
+          background: "var(--surface)",
+          border: "1px solid var(--border)",
+        }}
+      >
+        {/* ICON */}
+        <div
+          className="mb-4 flex items-center justify-center w-12 h-12 rounded-lg"
+          style={{
+            background: "var(--accent-bg)",
+            border: "1px solid var(--accent-border)",
+            color: "var(--primary)",
+          }}
+        >
+          {step.icon}
+        </div>
+
+        {/* TITLE */}
+        <h3 className="text-lg font-semibold text-[var(--text-h)] mb-2">
+          {step.title}
+        </h3>
+
+        {/* DESCRIPTION */}
+        <p className="text-sm text-[var(--text)]">
+          {step.desc}
         </p>
 
-        <div className="mt-8 flex justify-center gap-4">
-          <button className="bg-[var(--accent)] text-white px-6 py-3 rounded-lg">
-            Get Started
-          </button>
-          <button className="border border-[var(--border)] px-6 py-3 rounded-lg">
-            Verify Certificate
-          </button>
+        {/* ARROW */}
+        {index !== 3 && (
+ <img
+  src={arrow}
+  alt="arrow"
+  className="hidden md:block absolute top-1/2 right-[-0px]   w-6 opacity-70"
+ />
+)}
+      </div>
+    ))}
+
+  </div>
+</section>
+<section className="relative w-full py-32">
+
+  {/* BACKGROUND IMAGE */}
+  <img
+    src={feature}  // replace with your blockchain image if different
+    alt="Blockchain"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
+
+  {/* DARK OVERLAY */}
+  <div className="absolute inset-0 bg-black/70"></div>
+
+  {/* CONTENT */}
+  <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+
+    {/* HEADING */}
+    <h2 className="text-3xl md:text-4xl font-semibold text-[var(--text-h)] mb-4">
+       Features
+    </h2>
+
+    <p className="text-[var(--text)] mb-16 max-w-2xl mx-auto">
+      Built with cutting-edge blockchain technology to ensure trust, security, and speed.
+    </p>
+
+    {/* GLASS CARD CONTAINER */}
+<div className="grid md:grid-cols-3 gap-6 bg-black/30 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/10 max-w-4xl mx-auto shadow-[0_0_40px_rgba(163,94,71,0.2)]">
+      {[
+        {
+          title: "Tamper-Proof",
+          desc: "Certificates cannot be altered once stored on blockchain.",
+        },
+        {
+          title: "Instant Verification",
+          desc: "Verify credentials in seconds without manual processes.",
+        },
+        {
+          title: "Secure Storage",
+          desc: "Decentralized storage ensures maximum security.",
+        },
+        {
+          title: "Unique ID / QR",
+          desc: "Each certificate has a unique identity for validation.",
+        },
+        {
+          title: "Decentralized",
+          desc: "No single authority controls your data.",
+        },
+        {
+          title: "Transparent",
+          desc: "All records are verifiable and traceable.",
+        },
+      ].map((feature, i) => (
+        <div
+          key={i}
+          className="p-6 rounded-xl transition-all duration-300 hover:scale-105 border border-[var(--border)]"
+          style={{ background: "var(--surface)" }}
+        >
+          <h3 className="text-lg font-semibold text-[var(--text-h)] mb-2">
+            {feature.title}
+          </h3>
+          <p className="text-sm text-[var(--text)]">
+            {feature.desc}
+          </p>
         </div>
-      </section>
+      ))}
 
-      {/* PROBLEM SECTION */}
-      <section className="px-6 py-16 bg-[var(--surface)]">
-        <h2 className="text-2xl font-semibold text-center mb-10">
-          Problems We Solve
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          <div className="p-6 border border-[var(--border)] rounded-xl">
-            Fake certificates are increasing
-          </div>
-          <div className="p-6 border border-[var(--border)] rounded-xl">
-            Manual verification is slow
-          </div>
-          <div className="p-6 border border-[var(--border)] rounded-xl">
-            No trusted centralized system
-          </div>
-        </div>
-      </section>
-
-      {/* SOLUTION SECTION */}
-      <section className="px-6 py-16">
-        <h2 className="text-2xl font-semibold text-center mb-10">
-          Our Solution
-        </h2>
-
-        <div className="max-w-4xl mx-auto text-center text-[var(--text)] space-y-4">
-          <p>Upload certificates securely</p>
-          <p>Store them on blockchain</p>
-          <p>Verify instantly using unique ID or QR code</p>
-        </div>
-      </section>
-
-      {/* FEATURES */}
-      <section className="px-6 py-16 bg-[var(--surface)]">
-        <h2 className="text-2xl font-semibold text-center mb-10">
-          Features
-        </h2>
-
-        <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          <div className="p-6 border rounded-xl">Tamper-proof</div>
-          <div className="p-6 border rounded-xl">Instant Verification</div>
-          <div className="p-6 border rounded-xl">Secure</div>
-          <div className="p-6 border rounded-xl">Accessible</div>
-        </div>
-      </section>
-
-      {/* HOW IT WORKS */}
-      <section className="px-6 py-16">
-        <h2 className="text-2xl font-semibold text-center mb-10">
-          How It Works
-        </h2>
-
-        <div className="max-w-4xl mx-auto space-y-4 text-center">
-          <p>1. Institution uploads certificate</p>
-          <p>2. Stored securely on blockchain</p>
-          <p>3. User shares ID/QR</p>
-          <p>4. Employer verifies instantly</p>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="text-center py-16">
-        <h2 className="text-2xl font-semibold">
-          Start verifying skills the smart way
-        </h2>
-
-        <button className="mt-6 bg-[var(--accent)] text-white px-6 py-3 rounded-lg">
-          Get Started
-        </button>
-      </section>
-
+    </div>
+  </div>
+</section>
+<main className="max-w-6xl mx-auto px-6">
+</main>
       <Footer />
     </div>
   );
