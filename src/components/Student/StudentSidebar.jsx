@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
 
@@ -71,70 +72,81 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
           <ul >
 
             {/* DASHBOARD */}
-            <li>
-              <a
-                href="#"
-                className={`flex items-center ${
-                  collapsed ? "justify-center" : "gap-3"
-                } px-4 py-3 rounded-xl transition-all`}
-                style={{
-                  background: "var(--accent-bg)",
-                  color: "var(--primary)",
-                }}
-              >
-                <svg
-                  className="w-5 h-5 shrink-0"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M10 6.025A7.5 7.5 0 1 0 17.975 14H10V6.025Z"
-                  />
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13.5 3c-.169 0-.334.014-.5.025V11h7.975c.011-.166.025-.331.025-.5A7.5 7.5 0 0 0 13.5 3Z"
-                  />
-                </svg>
+            {/* DASHBOARD */}
+<li>
+  <NavLink
+    to="/dashboard"
+    className={`flex items-center ${
+      collapsed ? "justify-center" : "gap-3"
+    } px-4 py-3 rounded-xl transition-all`}
+    style={({ isActive }) => ({
+      background: isActive
+        ? "var(--accent-bg)"
+        : "transparent",
+      color: isActive
+        ? "var(--primary)"
+        : "var(--text)",
+    })}
+  >
+    <svg
+      className="w-5 h-5 shrink-0"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M10 6.025A7.5 7.5 0 1 0 17.975 14H10V6.025Z"
+      />
+      <path
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M13.5 3c-.169 0-.334.014-.5.025V11h7.975c.011-.166.025-.331.025-.5A7.5 7.5 0 0 0 13.5 3Z"
+      />
+    </svg>
 
-                {!collapsed && <span>Dashboard</span>}
-              </a>
-            </li>
+    {!collapsed && <span>Dashboard</span>}
+  </NavLink>
+</li>
+{/* MY CREDENTIALS */}
+<li>
+  <NavLink
+    to="/my-credentials"
+    className={`flex items-center ${
+      collapsed ? "justify-center" : "gap-3"
+    } px-4 py-3 rounded-xl transition-all`}
+    style={({ isActive }) => ({
+      background: isActive
+        ? "var(--accent-bg)"
+        : "transparent",
+      color: isActive
+        ? "var(--primary)"
+        : "var(--text)",
+    })}
+  >
+    <svg
+      className="w-5 h-5 shrink-0"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M15 5v14M9 5v14M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"
+      />
+    </svg>
 
-            {/* MY CREDENTIALS */}
-            <li>
-              <a
-                href="#"
-                className={`flex items-center ${
-                  collapsed ? "justify-center" : "gap-3"
-                } px-4 py-3 rounded-xl transition-all hover:bg-[var(--accent-bg)]`}
-                style={{ color: "var(--text)" }}
-              >
-                <svg
-                  className="w-5 h-5 shrink-0"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 5v14M9 5v14M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"
-                  />
-                </svg>
-
-                {!collapsed && <span>My Credentials</span>}
-              </a>
-            </li>
+    {!collapsed && <span>My Credentials</span>}
+  </NavLink>
+</li>
 
             {/* UPLOAD */}
             <li>

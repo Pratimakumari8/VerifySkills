@@ -179,7 +179,7 @@ const Dashboard = () => {
 
     <p
       className="text-lg"
-      style={{ color: "var(--text)" }}
+     style={{ color: "#f59e0b" }}
     >
       Pending
     </p>

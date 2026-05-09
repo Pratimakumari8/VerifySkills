@@ -7,12 +7,10 @@ import Careers from "./pages/Careers";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TrustCenter from "./pages/TrustCenter";
 import StandardsPage from "./pages/StandardsPage";
-
-
-
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Student/StudentDashboard";
+import MyCredentials from "./pages/Student/MyCredentials";
 
 function App() {
   return (
@@ -29,9 +27,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/my-credentials" element={<MyCredentials />} />
       </Routes>
     </BrowserRouter>
   );
 }
-
 export default App;
