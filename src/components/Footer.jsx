@@ -3,19 +3,25 @@ import instagram from "../assets/instagram.png";
 import linkedin from "../assets/LinkedIn.png";
 import x from "../assets/twitter.png";
 import github from "../assets/github.png";
+import logo from "../assets/prologo.png";
 const Footer = () => {
   return (
     <footer className="relative mt-32 border-t border-[var(--border)] overflow-hidden pb-32">
 
       {/* TOP CONTENT */}
-      <div className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-12 text-[var(--text)]">
+      <div className="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-20 text-[var(--text)]">
 
         {/* LOGO */}
         <div>
-          <h2 className="text-xl font-semibold text-[var(--text-h)]">
-            VerifySkills
-          </h2>
-          <p className="text-sm mt-2 opacity-70">
+          <div className="flex items-center gap-3">
+          <img
+            src={logo}
+            alt="VerifySkills Logo"
+            className="w-34 h-11 object-contain"
+          />
+          </div>
+  {/* SOCIAL ICONS */}
+          <p className="text-sm mt-0 opacity-90">
             © 2026 VerifySkills
           </p>
           <div className="flex items-center gap-4 mt-4">
@@ -45,8 +51,13 @@ const Footer = () => {
             Platform
           </h3>
           <ul className="space-y-2 text-sm">
-            <li className="hover:text-[var(--accent)] cursor-pointer">How it Works</li>
-            <li className="hover:text-[var(--accent)] cursor-pointer">Pricing</li>
+            <li> <a
+       href="/How-it-Works"
+       className="hover:text-[var(--accent)] transition"
+  >
+    How it Works</a>
+    </li>
+            <li className="hover:text-[var(--accent)] transition">Pricing</li>
           </ul>
         </div>
 
@@ -56,8 +67,16 @@ const Footer = () => {
             Enterprise
           </h3>
           <ul className="space-y-2 text-sm">
-            <li className="hover:text-[var(--accent)] cursor-pointer">Standards</li>
-            <li className="hover:text-[var(--accent)] cursor-pointer">Trust Center</li>
+            <li><a href="/standards" className="hover:text-[var(--accent)] transition">
+              Standards
+            </a></li>
+            <li> <a
+       href="/trust-center"
+       className="hover:text-[var(--accent)] transition"
+  >
+    Trust Center
+  </a>
+</li>
           </ul>
         </div>
 
@@ -66,12 +85,32 @@ const Footer = () => {
           <h3 className="text-sm font-semibold mb-4 text-[var(--text-h)]">
             Company
           </h3>
-          <ul className="space-y-2 text-sm">
-            <li className="hover:text-[var(--accent)] cursor-pointer">About Us</li>
-            <li className="hover:text-[var(--accent)] cursor-pointer">Careers</li>
-            <li className="hover:text-[var(--accent)] cursor-pointer">Privacy Policy</li>
-            <li className="hover:text-[var(--accent)] cursor-pointer">Terms of Service</li>
-          </ul>
+            <ul className="space-y-2 text-sm">
+    <li>
+      <a href="/about" className="hover:text-[var(--accent)] transition">
+        About 
+      </a>
+    </li>
+
+  <  li>
+      <a href="/careers" className="hover:text-[var(--accent)] transition">
+        Careers
+      </a>
+    </li>
+
+    <li>
+      <a href="/privacy" className="hover:text-[var(--accent)  ] transition">
+          Privacy Policy  
+        </a>  
+      </li  >  
+  
+    <li>
+      <a href="/terms" className="hover:text-[var(--accent)] transition">
+        Terms of Service
+      </a>
+    </li>
+</ul>
+          
         </div>
       </div>
 
