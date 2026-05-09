@@ -1,15 +1,25 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/prologo.png";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "How it Works", path: "/how-it-works" },
     { name: "About", path: "/about" },
   ];
+
+  const handleRoleSelect = (role) => {
+    setOpen(false);
+
+    navigate("/signup", {
+      state: { role },
+    });
+  };
 
   return (
     <nav
@@ -20,19 +30,15 @@ const Header = () => {
         color: "var(--text)",
       }}
     >
-          <Link to="/" className="flex items-center gap-4">
-        
-          <img
-            src={logo}
-            alt="VerifySkills Logo"
-            className="w-50 h-18 object-contain mix-blend-lighten"
-          />
-        
-          <span className="font-semibold text-[var(--text-h)] text-2xl tracking-tight">
-            
-          </span>
-        
-        </Link>
+      <Link to="/" className="flex items-center gap-4">
+        <img
+          src={logo}
+          alt="VerifySkills Logo"
+          className="w-50 h-18 object-contain mix-blend-lighten"
+        />
+
+        <span className="font-semibold text-[var(--text-h)] text-2xl tracking-tight"></span>
+      </Link>
 
       <div className="hidden md:flex items-center gap-8 ml-7">
         {navLinks.map((item) => (
@@ -44,6 +50,7 @@ const Header = () => {
             <span className="block group-hover:-translate-y-full transition-transform duration-300 text-[var(--text)]">
               {item.name}
             </span>
+
             <span className="block absolute top-full left-0 group-hover:-translate-y-full transition-transform duration-300 text-[var(--primary)]">
               {item.name}
             </span>
@@ -86,6 +93,7 @@ const Header = () => {
               {["Certificate holder", "Institute", "Employer"].map((role) => (
                 <div
                   key={role}
+                  onClick={() => handleRoleSelect(role)}
                   className="px-4 py-2 text-sm cursor-pointer transition hover:bg-[var(--accent-bg)]"
                 >
                   {role}
