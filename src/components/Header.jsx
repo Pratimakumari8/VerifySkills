@@ -52,14 +52,21 @@ const Header = () => {
       </div>
 
       <div className="flex items-center gap-3">
-        <button
-          className="px-3 py-2 md:px-4 rounded-full text-sm font-medium transition border cursor-pointer hover:bg-[var(--primary)] hover:text-black"
-          style={{ borderColor: "var(--border)", color: "var(--text)" }}
-        >
-          Login
-        </button>
 
+        {/* LOGIN */}
+        <Link to="/login">
+          <button
+            className="px-3 py-2 md:px-4 rounded-full text-sm font-medium transition border cursor-pointer hover:bg-[var(--primary)] hover:text-black"
+            style={{ borderColor: "var(--border)", color: "var(--text)" }}
+          >
+            Login
+          </button>
+        </Link>
+
+        {/* SIGNUP WITH ROLE */}
         <div className="relative">
+
+          {/* BUTTON */}
           <button
             onClick={() => setOpen(!open)}
             className="px-3 py-2 md:px-4 rounded-full text-sm font-medium transition cursor-pointer hover:brightness-150"

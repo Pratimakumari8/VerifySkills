@@ -10,6 +10,8 @@ import StandardsPage from "./pages/StandardsPage";
 
 
 
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/trust-center" element={<TrustCenter />} />
         <Route path="/standards" element={<StandardsPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );
