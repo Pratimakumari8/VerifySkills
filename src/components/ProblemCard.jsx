@@ -12,12 +12,12 @@ const ProblemCard = ({ title, description, icon }) => {
 
   return (
     <div
-      ref={divRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setVisible(true)}
-      onMouseLeave={() => setVisible(false)}
-      className="relative w-full h-72 rounded-xl p-[1px] overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:shadow-xl"
-    >
+  ref={divRef}
+  onMouseMove={handleMouseMove}
+  onMouseEnter={() => setVisible(true)}
+  onMouseLeave={() => setVisible(false)}
+  className="group relative w-full min-h-[260px] rounded-xl p-[1px] overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+>
       {/* GRADIENT BORDER GLOW */}
       <div
         className="absolute inset-0 rounded-xl opacity-0 hover:opacity-100 transition duration-500"

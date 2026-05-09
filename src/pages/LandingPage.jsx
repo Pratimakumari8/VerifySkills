@@ -38,7 +38,7 @@ const LandingPage = () => {
   </div>
 
 </section>
-<section className="px-6 py-20">
+<section className="px-6 py-24 md:py-32">
   <h2 className="text-3xl font-semibold text-center text-[var(--text-h)] mb-4">
     Problems We Solve
   </h2>
@@ -137,6 +137,7 @@ const LandingPage = () => {
     </div>
   </div>
 </section>
+
 {/* SOLUTION SECTION */}
 <section className="px-6 py-20">
   <h2 className="text-3xl font-semibold text-center text-[var(--text-h)] mb-4">
