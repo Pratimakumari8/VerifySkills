@@ -1,7 +1,23 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
+    const navigate = useNavigate();
+
+const handleLogout = async () => {
+  try {
+    await signOut(auth); // logout from Google
+  } catch (error) {
+    console.log(error);
+  }
+
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  navigate("/"); // redirect to home
+};
 
   return (
     <>
@@ -213,36 +229,37 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
 
             {/* PROFILE */}
             <li>
-              <a
-                href="#"
-                className={`flex items-center ${
-                  collapsed ? "justify-center" : "gap-3"
-                } px-4 py-3 rounded-xl transition-all hover:bg-[var(--accent-bg)]`}
-                style={{ color: "var(--text)" }}
-              >
-                <svg
-                  className="w-5 h-5 shrink-0"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    d="M16 19h4a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-2m-2.236-4a3 3 0 1 0 0-4M3 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                  />
-                </svg>
+  <button
+    onClick={() => navigate("/profile")}
+    className={`w-full flex items-center ${
+      collapsed ? "justify-center" : "gap-3"
+    } px-4 py-3 rounded-xl transition-all hover:bg-[var(--accent-bg)]`}
+    style={{ color: "var(--text)" }}
+  >
+    <svg
+      className="w-5 h-5 shrink-0"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="2"
+        d="M16 19h4a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-2m-2.236-4a3 3 0 1 0 0-4M3 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+      />
+    </svg>
 
-                {!collapsed && <span>Profile</span>}
-              </a>
-            </li>
+    {!collapsed && <span>Profile</span>}
+  </button>
+</li>
 
             {/* LOGOUT */}
+            {/* LOGOUT */}
             <li>
-              <a
-                href="#"
-                className={`flex items-center ${
+              <button
+                onClick={handleLogout}
+                className={`flex items-center w-full ${
                   collapsed ? "justify-center" : "gap-3"
                 } px-4 py-3 rounded-xl transition-all hover:bg-red-500/10`}
                 style={{ color: "#ef4444" }}
@@ -263,7 +280,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                 </svg>
 
                 {!collapsed && <span>Logout</span>}
-              </a>
+              </button>
             </li>
 
           </ul>
