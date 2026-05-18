@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase";
+import { getDashboardPath } from "../utils/redirectByRole";
 import hero from "../assets/login_Signup.jpg";
 
 const Login = () => {
@@ -31,15 +32,20 @@ const Login = () => {
 
       const data = await response.json();
 
-      if (!response.ok) {
-        alert(data.message);
-        return;
-      }
+if (data.needsRole) {
+  navigate("/select-role", { state: { idToken } });
+  return;
+}
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+if (!response.ok) {
+  alert(data.message || "Google login failed");
+  return;
+}
 
-      navigate("/dashboard");
+localStorage.setItem("token", data.token);
+localStorage.setItem("user", JSON.stringify(data.user));
+
+navigate(getDashboardPath(data.user.role));
     } catch (error) {
       alert("Login failed. Please try again.");
       console.log(error);
@@ -69,7 +75,7 @@ const Login = () => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      navigate("/dashboard");
+      navigate(getDashboardPath(data.user.role));
     } catch (error) {
       alert("Google login failed. Please try again.");
       console.log(error);
@@ -166,7 +172,7 @@ const Login = () => {
 
           <p className="text-center text-sm mt-6 text-[var(--text)]">
             Don’t have account?{" "}
-            <Link to="/signup" className="text-[var(--primary)]">
+            <Link to="/" className="text-[var(--primary)]">
               Sign Up
             </Link>
           </p>

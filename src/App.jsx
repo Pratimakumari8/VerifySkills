@@ -12,6 +12,9 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Student/StudentDashboard";
 import MyCredentials from "./pages/Student/MyCredentials";
 import Profile from "./pages/Student/Profile";
+import InstituteDashboard from "./pages/Institute/InstituteDashboard";
+import InstituteProfile from "./pages/Institute/InstituteProfile";
+import SelectRole from "./pages/SelectRole";
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/my-credentials" element={<MyCredentials />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/institute-dashboard" element={<InstituteDashboard />} />
+         <Route path="/institute-profile" element={<InstituteProfile />} />
+         <Route path="/select-role" element={<SelectRole />} />
       </Routes>
     </BrowserRouter>
   );

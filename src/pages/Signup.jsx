@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase";
 import hero from "../assets/login_Signup.jpg";
+import { getDashboardPath } from "../utils/redirectByRole";
 import Alert from "../components/Alert";
 
 const Signup = () => {
@@ -12,7 +13,9 @@ const Signup = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  const role = location.state?.role || "User";
+  const [selectedRole, setSelectedRole] = useState(
+  location.state?.role || "Certificate holder"
+);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -46,7 +49,7 @@ const Signup = () => {
           lastName: formData.lastName,
           email: formData.email,
           password: formData.password,
-          role: role,
+          role: selectedRole,
         }),
       });
 
@@ -57,12 +60,14 @@ const Signup = () => {
         return;
       }
 
-      setAlertMessage("Account created successfully! Please login.");
-      setShowAlert(true);
+      localStorage.setItem("user", JSON.stringify(data.user));
 
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
+setAlertMessage("Account created successfully!");
+setShowAlert(true);
+
+setTimeout(() => {
+  navigate(getDashboardPath(data.user.role));
+}, 1000);
     } catch (error) {
       console.log(error);
       alert("Backend not connected. Please check server.");
@@ -79,20 +84,25 @@ const Signup = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ idToken, role }),
+        body: JSON.stringify({ idToken }),
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
-        alert(data.message || "Google signup failed");
-        return;
-      }
+if (data.needsRole) {
+  navigate("/select-role", { state: { idToken } });
+  return;
+}
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+if (!response.ok) {
+  alert(data.message || "Google signup failed");
+  return;
+}
 
-      navigate("/dashboard");
+localStorage.setItem("token", data.token);
+localStorage.setItem("user", JSON.stringify(data.user));
+
+navigate(getDashboardPath(data.user.role));
     } catch (error) {
       console.log(error);
       alert("Google signup failed. Please try again.");
@@ -136,7 +146,7 @@ const Signup = () => {
           <div className="absolute bottom-10 left-8 text-white z-10">
             <h1 className="text-4xl font-semibold">Join VerifySkills</h1>
             <p className="text-sm text-[var(--text)] mt-2">
-              Create your {role} account and start using VerifySkills
+              Create your {selectedRole} account and start using VerifySkills
             </p>
           </div>
         </div>
