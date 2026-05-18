@@ -1,14 +1,40 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import admin from "../config/firebaseAdmin.js"; // ✅ added
+import admin from "../config/firebaseAdmin.js";
+
+// helper function
+const generateToken = (user) => {
+  return jwt.sign(
+    { id: user._id, role: user.role },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" }
+  );
+};
+
+const sendUserResponse = (res, statusCode, message, user, authProvider) => {
+  const token = generateToken(user);
+
+  return res.status(statusCode).json({
+    message,
+    token,
+    user: {
+      id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      role: user.role,
+      authProvider,
+    },
+  });
+};
 
 // ================= SIGNUP =================
 export const signup = async (req, res) => {
   try {
     const { firstName, lastName, email, password, role } = req.body;
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!firstName || !lastName || !email || !password || !role) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -28,19 +54,12 @@ export const signup = async (req, res) => {
       role,
     });
 
-    res.status(201).json({
-      message: "Signup successful",
-      user: {
-  id: user._id,
-  firstName: user.firstName,
-  lastName: user.lastName,
-  email: user.email,
-  role: user.role,
-  authProvider: "local",
-},
-    });
+    return sendUserResponse(res, 201, "Signup successful", user, "local");
   } catch (error) {
-    res.status(500).json({ message: "Signup failed", error: error.message });
+    return res.status(500).json({
+      message: "Signup failed",
+      error: error.message,
+    });
   }
 };
 
@@ -55,7 +74,7 @@ export const login = async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    if (!user) {
+    if (!user || !user.password) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
@@ -65,26 +84,12 @@ export const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
-
-    res.status(200).json({
-      message: "Login successful",
-      token,
-      user: {
-  id: user._id,
-  firstName: user.firstName,
-  lastName: user.lastName,
-  email: user.email,
-  role: user.role,
-  authProvider: "local",
-},
-    });
+    return sendUserResponse(res, 200, "Login successful", user, "local");
   } catch (error) {
-    res.status(500).json({ message: "Login failed", error: error.message });
+    return res.status(500).json({
+      message: "Login failed",
+      error: error.message,
+    });
   }
 };
 
@@ -93,7 +98,10 @@ export const googleAuth = async (req, res) => {
   try {
     const { idToken, role } = req.body;
 
-    // verify token from Firebase
+    if (!idToken) {
+      return res.status(400).json({ message: "Google token is required" });
+    }
+
     const decoded = await admin.auth().verifyIdToken(idToken);
 
     const email = decoded.email;
@@ -101,7 +109,15 @@ export const googleAuth = async (req, res) => {
 
     let user = await User.findOne({ email });
 
-    // create user if not exists
+    // First-time Google signup: ask role first
+    if (!user && !role) {
+      return res.status(200).json({
+        message: "Role required for first time Google signup",
+        needsRole: true,
+      });
+    }
+
+    // Create Google user only after role is selected
     if (!user) {
       const nameParts = name.split(" ");
 
@@ -109,44 +125,27 @@ export const googleAuth = async (req, res) => {
         firstName: nameParts[0] || "Google",
         lastName: nameParts.slice(1).join(" ") || "User",
         email,
-        password: "", // no password for Google
-        role: role || "Certificate holder",
+        password: "",
+        role,
       });
     }
 
-    // generate JWT
-    const token = jwt.sign(
-      {
-        id: user._id,
-        role: user.role,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
-
-    res.status(200).json({
-      message: "Google login successful",
-      token,
-      user: {
-  id: user._id,
-  firstName: user.firstName,
-  lastName: user.lastName,
-  email: user.email,
-  role: user.role,
-  authProvider: "google",
-},
-    });
+    return sendUserResponse(res, 200, "Google login successful", user, "google");
   } catch (error) {
     console.log("Google Auth Error:", error);
-    res.status(500).json({
+
+    return res.status(500).json({
       message: "Google authentication failed",
+      error: error.message,
     });
   }
 };
+
 // ================= UPDATE PROFILE =================
 export const updateProfile = async (req, res) => {
   try {
-    const { id, firstName, lastName, email, phone, role, profilePhoto } = req.body;
+    const { id, firstName, lastName, email, phone, role, profilePhoto } =
+      req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
       id,
@@ -165,7 +164,7 @@ export const updateProfile = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Profile updated successfully",
       user: {
         id: updatedUser._id,
@@ -179,7 +178,7 @@ export const updateProfile = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       message: "Profile update failed",
       error: error.message,
     });

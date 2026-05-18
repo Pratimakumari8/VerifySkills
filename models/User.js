@@ -34,7 +34,7 @@ profilePhoto: {
 },
    role: {
   type: String,
-  enum: ["Certificate holder", "Institute", "Employer", "User"],
+  enum: ["Certificate holder", "Institute", "Employer"],
   default: "Certificate holder"
 },
   },
