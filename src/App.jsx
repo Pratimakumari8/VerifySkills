@@ -15,6 +15,7 @@ import Profile from "./pages/Student/Profile";
 import InstituteDashboard from "./pages/Institute/InstituteDashboard";
 import InstituteProfile from "./pages/Institute/InstituteProfile";
 import SelectRole from "./pages/SelectRole";
+import UploadCertificate from "./pages/Institute/UploadCertificate";
 
 function App() {
   return (
@@ -36,8 +37,9 @@ function App() {
         <Route path="/institute-dashboard" element={<InstituteDashboard />} />
          <Route path="/institute-profile" element={<InstituteProfile />} />
          <Route path="/select-role" element={<SelectRole />} />
+         <Route path="/upload-certificate" element={<UploadCertificate />} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 export default App;

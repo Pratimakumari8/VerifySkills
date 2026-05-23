@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import InstituteSidebar from "../../components/Institute/InstituteSidebar";
+import { useNavigate } from "react-router-dom";
 
 const InstituteDashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
-
+const navigate = useNavigate();
   return (
     <div className="min-h-screen" style={{ background: "var(--bg)" }}>
       <InstituteSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
@@ -57,12 +58,13 @@ const InstituteDashboard = () => {
             Upload learner certificate details and send them to backend for hash generation.
           </p>
 
-          <button
-            className="px-6 py-3 rounded-xl font-medium"
-            style={{ background: "var(--primary)", color: "#fff" }}
-          >
-            + Upload Certificate
-          </button>
+         <button
+  onClick={() => navigate("/upload-certificate")}
+  className="px-6 py-3 rounded-xl font-medium"
+  style={{ background: "var(--primary)", color: "#fff" }}
+>
+  + Upload Certificate
+</button>
         </div>
       </div>
     </div>
