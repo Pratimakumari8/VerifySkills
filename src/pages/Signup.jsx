@@ -13,9 +13,9 @@ const Signup = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  const [selectedRole, setSelectedRole] = useState(
-  location.state?.role || "Certificate holder"
-);
+  const [selectedRole] = useState(
+    location.state?.role || "Certificate holder"
+  );
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -33,6 +33,17 @@ const Signup = () => {
   };
 
   const handleSignup = async () => {
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      alert("Please fill all fields");
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match");
       return;
@@ -60,14 +71,15 @@ const Signup = () => {
         return;
       }
 
+      localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-setAlertMessage("Account created successfully!");
-setShowAlert(true);
+      setAlertMessage("Account created successfully!");
+      setShowAlert(true);
 
-setTimeout(() => {
-  navigate(getDashboardPath(data.user.role));
-}, 1000);
+      setTimeout(() => {
+        navigate(getDashboardPath(data.user.role));
+      }, 1000);
     } catch (error) {
       console.log(error);
       alert("Backend not connected. Please check server.");
@@ -89,20 +101,20 @@ setTimeout(() => {
 
       const data = await response.json();
 
-if (data.needsRole) {
-  navigate("/select-role", { state: { idToken } });
-  return;
-}
+      if (data.needsRole) {
+        navigate("/select-role", { state: { idToken } });
+        return;
+      }
 
-if (!response.ok) {
-  alert(data.message || "Google signup failed");
-  return;
-}
+      if (!response.ok) {
+        alert(data.message || "Google signup failed");
+        return;
+      }
 
-localStorage.setItem("token", data.token);
-localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
 
-navigate(getDashboardPath(data.user.role));
+      navigate(getDashboardPath(data.user.role));
     } catch (error) {
       console.log(error);
       alert("Google signup failed. Please try again.");
@@ -224,7 +236,7 @@ navigate(getDashboardPath(data.user.role));
           <div className="flex justify-center gap-4">
             <button
               onClick={handleGoogleSignup}
-              className="p-3 rounded-lg bg-[var(--surface)] hover:scale-130 transition"
+              className="p-3 rounded-lg bg-[var(--surface)] hover:scale-110 transition"
             >
               <img
                 src="https://www.svgrepo.com/show/475656/google-color.svg"

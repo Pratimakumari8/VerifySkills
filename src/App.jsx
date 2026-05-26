@@ -16,6 +16,12 @@ import InstituteDashboard from "./pages/Institute/InstituteDashboard";
 import InstituteProfile from "./pages/Institute/InstituteProfile";
 import SelectRole from "./pages/SelectRole";
 import UploadCertificate from "./pages/Institute/UploadCertificate";
+import IssuedCertificates from "./pages/Institute/IssuedCertificates";
+import EmployerDashboard from "./pages/Employer/EmployerDashboard";
+import EmployerProfile from "./pages/Employer/EmployerProfile";
+import VerifyCertificate from "./pages/Employer/VerifyCertificate";
+import VerificationHistory from "./pages/Employer/VerificationHistory";
+
 
 function App() {
   return (
@@ -38,6 +44,11 @@ function App() {
          <Route path="/institute-profile" element={<InstituteProfile />} />
          <Route path="/select-role" element={<SelectRole />} />
          <Route path="/upload-certificate" element={<UploadCertificate />} />
+         <Route path="/issued-certificates" element={<IssuedCertificates />} />
+          <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+          <Route path="/employer-profile" element={<EmployerProfile />} />
+          <Route path="/verify-certificate" element={<VerifyCertificate />} />
+<Route path="/verification-history" element={<VerificationHistory />} />
       </Routes>
     </BrowserRouter>
   )
