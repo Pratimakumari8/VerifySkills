@@ -5,24 +5,22 @@ import {
   getStudentCertificates,
   getInstituteCertificates,
   verifyCertificate,
+  getVerificationHistory,
   deleteCertificate,
 } from "../controllers/certificateController.js";
 import { protect, allowRoles } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename(req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+const storage = multer.memoryStorage();
+
+const upload = multer({
+  storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024,
   },
 });
 
-const upload = multer({ storage });
-
-// Institute upload certificate
 router.post(
   "/upload",
   protect,
@@ -31,7 +29,6 @@ router.post(
   uploadCertificate
 );
 
-// Student view own certificate
 router.get(
   "/student/my-certificates",
   protect,
@@ -39,21 +36,32 @@ router.get(
   getStudentCertificates
 );
 
-// Institute view uploaded certificates
 router.get(
   "/institute/my-certificates",
   protect,
   allowRoles("Institute"),
   getInstituteCertificates
 );
+
+router.get(
+  "/verification-history",
+  protect,
+  allowRoles("Employer"),
+  getVerificationHistory
+);
+
+router.get(
+  "/verify/:hash",
+  protect,
+  allowRoles("Employer"),
+  verifyCertificate
+);
+
 router.delete(
   "/:id",
   protect,
   allowRoles("Institute"),
   deleteCertificate
 );
-
-// Employer/public verification using hash
-router.get("/verify/:hash", verifyCertificate);
 
 export default router;

@@ -51,3 +51,68 @@ export const storeHashOnBlockchain = async (certificateHash) => {
 
   return signature;
 };
+
+export const verifyHashOnBlockchain = async (certificateHash, txSignature) => {
+  try {
+    const tx = await connection.getParsedTransaction(txSignature, {
+      commitment: "confirmed",
+      maxSupportedTransactionVersion: 0,
+    });
+
+    if (!tx) {
+      return {
+        valid: false,
+        message: "Blockchain transaction not found",
+      };
+    }
+
+    const instructions = tx.transaction.message.instructions;
+
+    for (const instruction of instructions) {
+      if (instruction.programId?.toString() === MEMO_PROGRAM_ID.toString()) {
+        const memoText = instruction.parsed || instruction.data;
+
+        if (!memoText) {
+          continue;
+        }
+
+        try {
+          const memoData = JSON.parse(memoText);
+
+          if (
+            memoData.app === "VerifySkills" &&
+            memoData.type === "CERTIFICATE_HASH" &&
+            memoData.hash === certificateHash
+          ) {
+            return {
+              valid: true,
+              message: "Hash verified on Solana blockchain",
+              blockchainData: memoData,
+            };
+          }
+        } catch {
+          if (String(memoText).includes(certificateHash)) {
+            return {
+              valid: true,
+              message: "Hash verified on Solana blockchain",
+              blockchainData: memoText,
+            };
+          }
+        }
+      }
+    }
+
+    return {
+      valid: false,
+      message: "Certificate hash not found in blockchain transaction",
+    };
+  } catch (error) {
+    console.log("Blockchain verification error:", error.message);
+
+    return {
+      valid: false,
+      message: "Blockchain verification failed",
+      error: error.message,
+    };
+  }
+};
