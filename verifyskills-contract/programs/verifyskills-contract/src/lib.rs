@@ -16,6 +16,18 @@ pub mod verifyskills_contract {
     use super::*;
 
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        initialize::handler(ctx)
-    }
+    initialize::handler(ctx)
+}
+
+pub fn issue_certificate(
+    ctx: Context<IssueCertificate>,
+    certificate_hash: String,
+    student_id: String,
+) -> Result<()> {
+    issue_certificate::handler(
+        ctx,
+        certificate_hash,
+        student_id,
+    )
+}
 }
